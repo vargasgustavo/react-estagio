@@ -1,5 +1,9 @@
 import React from "react";
 import { InputLabel, Select, Box, MenuItem, FormControl } from "@mui/material";
+import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import IconButton from '@mui/material/IconButton';
 // import { Background, Main } from "./style/styles";
 
 const optionsestados = [
@@ -76,17 +80,72 @@ const optionscidades = [
   },
 ];
 
+const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+
+function MyApp() {
+  const theme = useTheme();
+  const colorMode = React.useContext(ColorModeContext);
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        borderRadius: 1,
+        p: 3,
+      }}
+    >
+      {theme.palette.mode} mode
+      <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+        {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+      </IconButton>
+    </Box>
+  );
+}
+
+export default function ToggleColorMode() {
+  const [mode, setMode] = React.useState('light');
+  const colorMode = React.useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      },
+    }),
+    [],
+  );
+
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+        },
+      }),
+    [mode],
+  );
+
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <MyApp />
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      estado: "São Paulo",
+      estado: "Estado",
     };
 
     this.state = {
-      cidade: "Campinas",
+      cidade: "Cidade",
     };
-
+    
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -99,6 +158,7 @@ class App extends React.Component {
 
   onLoad(e) {}
 
+
   render() {
     return (
       <div id="App">
@@ -107,7 +167,7 @@ class App extends React.Component {
         <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth sx={{ marginTop: 8 }}>
             <div className="select-container">
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel sx={{ marginLeft: 10 }} id="demo-simple-select-label">
                 Selecione o estado:
               </InputLabel>
               <Select
@@ -131,7 +191,10 @@ class App extends React.Component {
                   <MenuItem value={option.value}>{option.label}</MenuItem>
                 ))}
               </Select>
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel
+                sx={{ marginTop: 12, marginLeft: 10 }}
+                id="demo-simple-select-label"
+              >
                 Selecione a cidade:
               </InputLabel>
               <Select
