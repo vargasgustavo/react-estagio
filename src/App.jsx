@@ -117,6 +117,8 @@ class App extends React.Component {
                   justifyContent: "center",
                   alignItems: "center",
                   marginBottom: 5,
+                  marginLeft: 10,
+                  marginRight: 10,
                 }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -138,6 +140,8 @@ class App extends React.Component {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  marginLeft: 10,
+                  marginRight: 10,
                 }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
