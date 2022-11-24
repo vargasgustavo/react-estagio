@@ -1,4 +1,5 @@
 import React from 'react';
+import { Select } from '@mui/material';
 
 const optionsestados = [
   {
@@ -21,52 +22,56 @@ const optionsestados = [
 
 const optionscidades = [
   {
-    label: "",
-    value: "",
+    label: "Indaiatuba",
+    value: "indaiatuba",
   },
   {
-    label: "",
-    value: "",
+    label: "Campinas",
+    value: "campinas",
   },
   {
-    label: "",
-    value: "",
+    label: "São Paulo",
+    value: "saopaulo",
   },
   {
-    label: "",
-    value: "",
+    label: "Ouro Preto",
+    value: "ouropreto",
   },
   {
-    label: "",
-    value: "",
+    label: "Belo Horizonte",
+    value: "belohorizonte",
   },
   {
-    label: "",
-    value: "",
+    label: "Niterói",
+    value: "niteroi",
   },
   {
-    label: "",
-    value: "",
+    label: "São Gonçalo",
+    value: "saogoncalo",
   },
   {
-    label: "",
-    value: "",
+    label: "Duque de Caxias",
+    value: "duquedecaxias",
   },
   {
-    label: "",
-    value: "",
+    label: "Magé",
+    value: "mage",
   },
   {
-    label: "",
-    value: "",
+    label: "Vitória",
+    value: "vitoria",
   },
   {
-    label: "",
-    value: "",
+    label: "Vila Velha",
+    value: "vilavelha",
   },
   {
-    label: "",
-    value: "",
+    label: "Serra",
+    value: "serra",
+  },
+  {
+    label: "Guarapari",
+    value: "guarapari",
   },
 ]
 
@@ -85,9 +90,16 @@ class App extends React.Component {
   }
 
   handleChange(e) {
-    console.log("Estado Selecionado!!");
-    this.setState({ estado: e.target.value });
-    this.setState({ cidade: e.target.value });
+    this.setState({ estado: e.target.value })
+    this.setState({ cidade: e.target.value })
+  }
+
+  onSelect(e) {
+    
+  }
+
+  onLoad(e) {
+
   }
 
   render() {
@@ -95,17 +107,17 @@ class App extends React.Component {
       <div id="App">
         <div className="select-container">
           <h1>Selecione o estado:</h1>
-          <select value={this.state.estado} onChange={this.handleChange}>
+          <Select value={this.state.estado} onChange={this.handleChange}>
             {optionsestados.map((option) => (
               <option value={option.value}>{option.label}</option>
             ))}
-          </select>
+          </Select>
           <h1>Selecione a cidade:</h1>
-          <select value={this.state.cidade} onChange={this.handleChange}>
+          <Select value={this.state.cidade} onChange={this.handleChange}>
             {optionscidades.map((option) => (
               <option value={option.value}>{option.label}</option>
             ))}
-          </select>
+          </Select>
         </div>
       </div>
     );
